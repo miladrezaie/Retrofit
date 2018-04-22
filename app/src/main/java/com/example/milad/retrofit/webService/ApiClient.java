@@ -8,7 +8,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ApiClient {
-    public static final String BASE_URL = "http://192.168.1.100:8080/server/";
+    public static final String BASE_URL = "https://api.backtory.com/";
+    public static final String XBacktoryAuthenticationId = "5a9314fbe4b04e579ee1edbe";
+    public static final String XBacktoryAuthenticationKeyClient = "5a9314fbe4b05bb64131ee38";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
