@@ -65,12 +65,10 @@ public class RegisterActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             Toast.makeText(RegisterActivity.this, "ثبت اطلاعت با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
                         } else {
-
                             Log.i("rezaie", " " + response.body());
                             Log.i("rezaie", " " + response.headers());
                             Log.i("rezaie", " " + call.request().headers());
                             Log.i("rezaie", " " + call.request().body());
-
                             Toast.makeText(RegisterActivity.this, "errrrror in program", Toast.LENGTH_SHORT).show();
                         }
                     }

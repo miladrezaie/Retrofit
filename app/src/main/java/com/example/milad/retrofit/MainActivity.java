@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText input_username;
     private EditText input_password;
 
-    Button btn_login;
-    Button btngo_register;
+    private Button btn_login;
+    private Button btngo_register;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
