@@ -12,16 +12,16 @@ public class AuthenticationResponseModel {
     private String access_token;
 
     @SerializedName("token_type")
-    public String token_type;
+    private String token_type;
 
     @SerializedName("refresh_token")
-    public String refresh_token;
+    private String refresh_token;
 
     @SerializedName("expires_in")
-    public String expires_in;
+    private String expires_in;
 
-    public String scope;
-    public String jti;
+    private String scope;
+    private String jti;
 
 
     public AuthenticationResponseModel(String access_token, String token_type) {

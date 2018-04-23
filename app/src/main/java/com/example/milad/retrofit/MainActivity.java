@@ -35,12 +35,12 @@ public class MainActivity extends AppCompatActivity {
         input_password = (EditText) findViewById(R.id.input_password);
 
         btn_login = (Button) findViewById(R.id.btn_login);
-        btngo_register=(Button) findViewById(R.id.btngo_register);
+        btngo_register = (Button) findViewById(R.id.btngo_register);
 
         btngo_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,RegisterActivity.class);
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-
 
 
     }
