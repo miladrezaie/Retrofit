@@ -41,17 +41,18 @@ public class RegisterResponseModel {
     @SerializedName("username")
     private String username;
 
+
     public RegisterResponseModel() {
     }
 
-    public RegisterResponseModel(String firstName, String lastName, String instanceId, String active, String guest, String email, String phonNumber, String creationDate, String userId, String avatar, String username) {
+    public RegisterResponseModel(String firstName, String lastName, String instanceId, String active, String guest, String email, String phoneNumber, String creationDate, String userId, String avatar, String username) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.instanceId = instanceId;
         this.active = active;
         this.guest = guest;
         this.email = email;
-        this.phoneNumber = phonNumber;
+        this.phoneNumber = phoneNumber;
         this.creationDate = creationDate;
         this.userId = userId;
         this.avatar = avatar;
@@ -110,8 +111,8 @@ public class RegisterResponseModel {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phonNumber) {
-        this.phoneNumber = phonNumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getCreationDate() {

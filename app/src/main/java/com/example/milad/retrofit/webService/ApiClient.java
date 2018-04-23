@@ -24,7 +24,8 @@ public class ApiClient {
         }
         return retrofit;
     }
-    public static String getAccessToken(){
+
+    public static String getAccessToken() {
         return access_token;
     }
 

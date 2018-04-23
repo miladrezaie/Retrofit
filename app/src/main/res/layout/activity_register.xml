@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="نام"
-                android:inputType="text" />
+                android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="نام خانوادگی"
-                android:inputType="text" />
+                android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="نام کاربری"
-                android:inputType="text" />
+                android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
 
         <!--  Password Label -->
@@ -87,7 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="شماره تماس"
-                android:inputType="number" />
+                android:inputType="numberSigned" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
