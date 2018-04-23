@@ -1,8 +1,12 @@
 package com.example.milad.retrofit.webService;
 
 import com.example.milad.retrofit.model.RegisterResponseModel;
+import com.example.milad.retrofit.model.User;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -19,6 +23,6 @@ public interface RegisterInterface {
             "Content-Type: application/json"
     })
     @POST("/auth/users")
-    Call<RegisterResponseModel> InsertUser(@Header("Authorization") String token);
+    Call<RegisterResponseModel> insertuser();
 
 }

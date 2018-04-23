@@ -8,23 +8,20 @@ import com.google.gson.annotations.SerializedName;
 
 public class RegisterResponseModel {
 
-    @SerializedName("instanceId")
-    private String instanceId;
-
-    @SerializedName("userId")
-    private String userId;
-
-    @SerializedName("username")
-    private String username;
-
-    @SerializedName("password")
-    private String password;
-
     @SerializedName("firstName")
     private String firstName;
 
     @SerializedName("lastName")
     private String lastName;
+
+    @SerializedName("instanceId")
+    private String instanceId;
+
+    @SerializedName("active")
+    private String active;
+
+    @SerializedName("guest")
+    private String guest;
 
     @SerializedName("email")
     private String email;
@@ -32,50 +29,33 @@ public class RegisterResponseModel {
     @SerializedName("phoneNumber")
     private String phoneNumber;
 
+    @SerializedName("creationDate")
+    private String creationDate;
+
+    @SerializedName("userId")
+    private String userId;
+
     @SerializedName("avatar")
     private String avatar;
+
+    @SerializedName("username")
+    private String username;
 
     public RegisterResponseModel() {
     }
 
-    public RegisterResponseModel(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public RegisterResponseModel(String firstName, String lastName, String username, String password, String email, String phoneNumber, String avatar) {
+    public RegisterResponseModel(String firstName, String lastName, String instanceId, String active, String guest, String email, String phonNumber, String creationDate, String userId, String avatar, String username) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.avatar = avatar;
-    }
-
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getInstanceId() {
-        return instanceId;
-    }
-
-    public void setInstanceId(String instanceId) {
         this.instanceId = instanceId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
+        this.active = active;
+        this.guest = guest;
+        this.email = email;
+        this.phoneNumber = phonNumber;
+        this.creationDate = creationDate;
         this.userId = userId;
+        this.avatar = avatar;
+        this.username = username;
     }
 
     public String getFirstName() {
@@ -94,12 +74,60 @@ public class RegisterResponseModel {
         this.lastName = lastName;
     }
 
+    public String getInstanceId() {
+        return instanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
+    }
+
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
+    }
+
+    public String getGuest() {
+        return guest;
+    }
+
+    public void setGuest(String guest) {
+        this.guest = guest;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhoneNumber(String phonNumber) {
+        this.phoneNumber = phonNumber;
+    }
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getAvatar() {
@@ -117,5 +145,4 @@ public class RegisterResponseModel {
     public void setUsername(String username) {
         this.username = username;
     }
-
 }
