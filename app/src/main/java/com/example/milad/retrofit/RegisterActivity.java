@@ -44,13 +44,12 @@ public class RegisterActivity extends AppCompatActivity {
         btn_register = (Button) findViewById(R.id.btn_register);
 
 
-
         final RegisterInterface registerInterface = ApiClient.getClient().create(RegisterInterface.class);
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Call<RegisterResponseModel> call = registerInterface.InsertUser(
+                Call<RegisterResponseModel> call = registerInterface.InsertUser(new User(
                         input_firstName.getText().toString(),
                         input_lastName.getText().toString(),
                         input_username.getText().toString(),
@@ -58,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
                         input_email.getText().toString(),
                         input_phoneNumber.getText().toString(),
                         null
-                );
+                ));
                 call.enqueue(new Callback<RegisterResponseModel>() {
                     @Override
                     public void onResponse(Call<RegisterResponseModel> call, Response<RegisterResponseModel> response) {

@@ -1,5 +1,7 @@
 package com.example.milad.retrofit.model;
 
+import android.widget.EditText;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -31,9 +33,9 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password) {
+    public User(String username) {
         this.username = username;
-        this.password = password;
+
     }
 
     public User(String firstName, String lastName, String username, String password, String email, String phoneNumber, String avatar) {
@@ -74,11 +76,11 @@ public class User {
         this.avatar = avatar;
     }
 
-    public String getFirstName() {
+    public String getFirstName(String input_firstName) {
         return firstName;
     }
 
-    public String getLastName() {
+    public String getLastName(String input_lastName) {
         return lastName;
     }
 
@@ -90,7 +92,7 @@ public class User {
         return password;
     }
 
-    public String getEmail() {
+    public String getEmail(String s) {
         return email;
     }
 

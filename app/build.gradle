@@ -30,6 +30,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.android.support:design:26.1.0'
     compile 'com.pegah.backtory:backtory-android-sdk:0.6.6'
+    compile 'com.google.code.gson:gson:2.8.2'
 }
 
 

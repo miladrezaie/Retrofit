@@ -15,11 +15,11 @@ public class NotesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
-        textView = (TextView) findViewById(R.id.ttView);
-        Intent intent = getIntent();
-
-        String token = intent.getExtras().toString();
-        textView.setText(token);
+//        textView = (TextView) findViewById(R.id.ttView);
+//        Intent intent = getIntent();
+//
+//        String token = intent.getExtras().toString();
+//        textView.setText(token);
 
 
     }

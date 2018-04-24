@@ -19,21 +19,19 @@ import retrofit2.http.POST;
 
 public interface RegisterInterface {
 
-    @FormUrlEncoded
     @Headers({
             "X-Backtory-Authentication-Id: 5a9314fbe4b04e579ee1edbe",
             "Content-Type: application/json",
-            "Accept: application/json"
     })
     @POST("/auth/users")
-    Call<RegisterResponseModel> InsertUser(
-            @Field("firstName") String firstName,
-            @Field("lastName") String lastName,
-            @Field("username") String username,
-            @Field("password") String password,
-            @Field("email") String email,
-            @Field("phoneNumber") String phoneNumber,
-            @Field("avatar") String avatar
+    Call<RegisterResponseModel> InsertUser(@Body User user
     );
 
+//    @Field("firstName") String firstName,
+//    @Field("lastName") String lastName,
+//    @Field("username") String username,
+//    @Field("password") String password,
+//    @Field("email") String email,
+//    @Field("phoneNumber") String phoneNumber,
+//    @Field("avatar") String avatar
 }
