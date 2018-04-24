@@ -44,24 +44,19 @@ public class navigationDrawerActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-
-
         Intent intent = getIntent();
         String n = intent.getExtras().getString("username");
 
+        View textView = navigationView.findViewById(R.id.nav_view);
 
-        View textView=navigationView.findViewById(R.id.nav_view) ;
-
-
-
-        View hView =  navigationView.getHeaderView(0);
-        TextView nav_user = (TextView)hView.findViewById(R.id.texview);
+        View hView = navigationView.getHeaderView(0);
+        TextView nav_user = (TextView) hView.findViewById(R.id.texview);
         nav_user.setText(n.toString());
         navigationView.setNavigationItemSelectedListener(this);
 
 
+        //add note in backtoryservices
 
     }
 
@@ -104,7 +99,10 @@ public class navigationDrawerActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            // note activity
+            Intent intent = new Intent(navigationDrawerActivity.this, NotesActivity.class);
+            startActivity(intent);
+
 
         } else if (id == R.id.nav_gallery) {
 

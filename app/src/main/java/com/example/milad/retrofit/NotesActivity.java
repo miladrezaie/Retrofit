@@ -6,20 +6,17 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.milad.retrofit.webService.ApiClient;
+import com.example.milad.retrofit.webService.NoteInterface;
+
 public class NotesActivity extends AppCompatActivity {
-
-
-    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
-//        textView = (TextView) findViewById(R.id.ttView);
-//        Intent intent = getIntent();
-//
-//        String token = intent.getExtras().toString();
-//        textView.setText(token);
+
+        NoteInterface noteInterface = ApiClient.getClient().create(NoteInterface.class);
 
 
     }

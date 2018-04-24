@@ -62,10 +62,10 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(MainActivity.this, navigationDrawerActivity.class);
                             User user = new User();
                             user.setUsername(input_username.getText().toString());
-                            Log.i("miladrezaie"," "+user.getUsername());
-
+                            Log.i("miladrezaie","username: "+user.getUsername());
                             intent.putExtra("username", user.getUsername());
                             ApiClient.access_token = response.body().getAccess_token();
+                            Log.i("miladrezaie","token: "+ApiClient.access_token);
                             Toast.makeText(MainActivity.this, response.body().getAccess_token(), Toast.LENGTH_SHORT).show();
                             startActivity(intent);
                         } else {

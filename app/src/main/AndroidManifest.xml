@@ -21,7 +21,6 @@
         </activity>
         <activity android:name=".NotesActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".NoteActivity" />
         <activity
             android:name=".navigationDrawerActivity"
             android:label="@string/title_activity_navigation_drawer"
