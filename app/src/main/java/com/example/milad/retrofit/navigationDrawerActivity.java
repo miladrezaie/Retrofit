@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,18 +17,41 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.milad.retrofit.adapter.MyRecyclerView;
+import com.example.milad.retrofit.model.Note;
+import com.example.milad.retrofit.model.ResultsResponse;
+import com.example.milad.retrofit.webService.ApiClient;
+import com.example.milad.retrofit.webService.NoteInterface;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class navigationDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
     public TextView textView;
+    private RecyclerView recyclerView;
+    private MyRecyclerView adapter;
+    private LinearLayoutManager linearLayoutManager;
+
+    private String token = "Bearer " + ApiClient.getAccessToken();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
+
+        //add note in backtoryservices
+        userRequest();
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
@@ -56,9 +82,42 @@ public class navigationDrawerActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        //add note in backtoryservices
 
     }
+
+
+    private void userRequest() {
+        NoteInterface noteInterface = ApiClient.getClient().create(NoteInterface.class);
+        Call<ResultsResponse> call = noteInterface.allNotes(token,new Note(ApiClient.getUser_id()));
+        call.enqueue(new Callback<ResultsResponse>() {
+            @Override
+            public void onResponse(Call<ResultsResponse> call, Response<ResultsResponse> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(navigationDrawerActivity.this, "نمایش کل داده ها", Toast.LENGTH_SHORT).show();
+                    List<Note> notes = response.body().getAll();
+                    setupRecyclerView(notes);
+
+                } else {
+                    Toast.makeText(navigationDrawerActivity.this, "ارور دارید", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResultsResponse> call, Throwable t) {
+                Toast.makeText(navigationDrawerActivity.this, "ارتباط با سرور مقدور نیست", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setupRecyclerView(List<Note> notes) {
+        recyclerView = (RecyclerView) findViewById(R.id.myReceycler);
+        adapter = new MyRecyclerView(navigationDrawerActivity.this, notes);
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+    }
+
 
     @Override
     public void onBackPressed() {

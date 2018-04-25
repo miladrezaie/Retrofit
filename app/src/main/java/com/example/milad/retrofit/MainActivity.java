@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 
 import com.example.milad.retrofit.model.AuthenticationResponseModel;
+import com.example.milad.retrofit.model.Note;
 import com.example.milad.retrofit.model.User;
 import com.example.milad.retrofit.webService.ApiClient;
 import com.example.milad.retrofit.webService.LoginApiInterface;
@@ -60,11 +61,15 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(Call<AuthenticationResponseModel> call, Response<AuthenticationResponseModel> response) {
                         if (response.isSuccessful()) {
                             Intent intent = new Intent(MainActivity.this, NotesActivity.class);
-//                            User user = new User();
-//                            user.setUsername(input_username.getText().toString());
+                            User user = new User();
+                            user.setUsername(input_username.getText().toString());
 //                            Log.i("miladrezaie","username: "+user.getUsername());
 //                            intent.putExtra("username", user.getUsername());
+                            Note note = new Note(input_username.getText().toString());
+
                             ApiClient.access_token = response.body().getAccess_token();
+                            ApiClient.user_id=note.getUser_id();
+
                             Log.i("miladrezaie","token: "+ApiClient.access_token);
                             Toast.makeText(MainActivity.this, response.body().getAccess_token(), Toast.LENGTH_SHORT).show();
                             startActivity(intent);

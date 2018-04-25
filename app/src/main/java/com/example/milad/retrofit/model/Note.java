@@ -18,6 +18,14 @@ public class Note {
     @SerializedName("description")
     private String description;
 
+    public Note(){
+
+    }
+
+    public Note(String user_id){
+        this.user_id = user_id;
+    }
+
     public Note(String user_id, String name, String description) {
         this.user_id = user_id;
         this.name = name;

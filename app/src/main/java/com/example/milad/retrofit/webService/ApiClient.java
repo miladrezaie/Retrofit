@@ -13,6 +13,7 @@ public class ApiClient {
     public static final String XBacktoryAuthenticationKeyClient = "5a9314fbe4b05bb64131ee38";
 
     public static String access_token;
+    public static String user_id;
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
@@ -28,5 +29,11 @@ public class ApiClient {
     public static String getAccessToken() {
         return access_token;
     }
+
+    public static String getUser_id() {
+        return user_id;
+    }
+
+
 
 }
