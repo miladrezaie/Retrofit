@@ -35,7 +35,6 @@ public class User {
 
     public User(String username) {
         this.username = username;
-
     }
 
     public User(String firstName, String lastName, String username, String password, String email, String phoneNumber, String avatar) {

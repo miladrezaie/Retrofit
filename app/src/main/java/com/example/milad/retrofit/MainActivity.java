@@ -59,11 +59,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<AuthenticationResponseModel> call, Response<AuthenticationResponseModel> response) {
                         if (response.isSuccessful()) {
-                            Intent intent = new Intent(MainActivity.this, navigationDrawerActivity.class);
-                            User user = new User();
-                            user.setUsername(input_username.getText().toString());
-                            Log.i("miladrezaie","username: "+user.getUsername());
-                            intent.putExtra("username", user.getUsername());
+                            Intent intent = new Intent(MainActivity.this, NotesActivity.class);
+//                            User user = new User();
+//                            user.setUsername(input_username.getText().toString());
+//                            Log.i("miladrezaie","username: "+user.getUsername());
+//                            intent.putExtra("username", user.getUsername());
                             ApiClient.access_token = response.body().getAccess_token();
                             Log.i("miladrezaie","token: "+ApiClient.access_token);
                             Toast.makeText(MainActivity.this, response.body().getAccess_token(), Toast.LENGTH_SHORT).show();
