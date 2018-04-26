@@ -1,20 +1,21 @@
 package com.example.milad.retrofit.adapter;
 
+import android.app.NativeActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.milad.retrofit.R;
 import com.example.milad.retrofit.model.Note;
+import com.example.milad.retrofit.noteInfoActivity;
 
 import java.util.List;
 
-/**
- * Created by milad on 4/24/2018.
- */
 
 public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHolder> {
     private Context context;
@@ -33,8 +34,16 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.name.setText(notes.get(position).getName() + "  " + notes.get(position).getDescription());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, noteInfoActivity.class);
+                intent.putExtra("id", notes.get(position).get_id());
+                context.startActivity(intent);
+            }
+        });
     }
 
 
@@ -45,11 +54,12 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
+        private Button btndelete;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.name);
+            btndelete = (Button) itemView.findViewById(R.id.btndelete);
         }
     }
-
 }

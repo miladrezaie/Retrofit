@@ -1,12 +1,8 @@
 package com.example.milad.retrofit;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -15,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,11 +20,11 @@ import com.example.milad.retrofit.adapter.MyRecyclerView;
 import com.example.milad.retrofit.model.Note;
 import com.example.milad.retrofit.model.NoteResponseModel;
 import com.example.milad.retrofit.model.ResultsResponse;
-import com.example.milad.retrofit.model.User;
+
+import com.example.milad.retrofit.model.deleteResponseBodyModel;
 import com.example.milad.retrofit.webService.ApiClient;
 import com.example.milad.retrofit.webService.NoteInterface;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -43,16 +40,17 @@ public class NotesActivity extends AppCompatActivity {
     private TextView textviewsabt;
     private TextView textviewkhoroj;
     private String token = "Bearer " + ApiClient.getAccessToken();
-
+    private Button btndelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view);
 
-
         userRequest();
+
         coustomAlertDialog();
+
 
     }
 
@@ -65,6 +63,8 @@ public class NotesActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Toast.makeText(NotesActivity.this, "نمایش کل داده ها", Toast.LENGTH_SHORT).show();
                     List<Note> notes = response.body().getAll();
+                    Note note = new Note();
+                    ApiClient.id = note.get_id();
                     setupRecyclerView(notes);
                 } else {
                     Toast.makeText(NotesActivity.this, "ارور دارید", Toast.LENGTH_SHORT).show();
@@ -115,8 +115,6 @@ public class NotesActivity extends AppCompatActivity {
                     }
                 });
     }
-
-
 
     private void coustomAlertDialog() {
 
@@ -182,4 +180,20 @@ public class NotesActivity extends AppCompatActivity {
 
     }
 
+    private void deleteNote() {
+        NoteInterface noteInterface = ApiClient.getClient().create(NoteInterface.class);
+
+        Call<deleteResponseBodyModel> call = noteInterface.deleteNote(token, ApiClient.getId().toString());
+        call.enqueue(new Callback<deleteResponseBodyModel>() {
+            @Override
+            public void onResponse(Call<deleteResponseBodyModel> call, Response<deleteResponseBodyModel> response) {
+                alertDiaog();
+            }
+
+            @Override
+            public void onFailure(Call<deleteResponseBodyModel> call, Throwable t) {
+                Toast.makeText(NotesActivity.this, "ارتباط با سرور مقدور نیست", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

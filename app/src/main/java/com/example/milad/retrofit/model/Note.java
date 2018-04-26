@@ -8,6 +8,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Note {
 
+    @SerializedName("_id")
+    private String _id;
 
     @SerializedName("user_id")
     private String user_id;
@@ -54,6 +56,14 @@ public class Note {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 }
 

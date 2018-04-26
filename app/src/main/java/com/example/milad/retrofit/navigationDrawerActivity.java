@@ -111,7 +111,7 @@ public class navigationDrawerActivity extends AppCompatActivity
 
     private void setupRecyclerView(List<Note> notes) {
         recyclerView = (RecyclerView) findViewById(R.id.myReceycler);
-        adapter = new MyRecyclerView(navigationDrawerActivity.this, notes);
+//        adapter = new MyRecyclerView(navigationDrawerActivity.this, notes);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(linearLayoutManager);
