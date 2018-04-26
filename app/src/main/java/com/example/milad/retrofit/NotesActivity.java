@@ -3,6 +3,7 @@ package com.example.milad.retrofit;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -27,9 +28,13 @@ import com.example.milad.retrofit.webService.NoteInterface;
 
 import java.util.List;
 
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static cn.pedant.SweetAlert.SweetAlertDialog.*;
 
 public class NotesActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -118,6 +123,8 @@ public class NotesActivity extends AppCompatActivity {
 
     private void coustomAlertDialog() {
 
+
+
         AlertDialog.Builder builder = new AlertDialog.Builder(NotesActivity.this);
         View v = getLayoutInflater().inflate(R.layout.dialog, null);
 
@@ -179,5 +186,4 @@ public class NotesActivity extends AppCompatActivity {
         });
 
     }
-
 }

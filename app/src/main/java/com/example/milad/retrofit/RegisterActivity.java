@@ -1,5 +1,6 @@
 package com.example.milad.retrofit;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,8 @@ import com.example.milad.retrofit.model.User;
 import com.example.milad.retrofit.webService.ApiClient;
 import com.example.milad.retrofit.webService.RegisterInterface;
 
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,6 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
                 Call<RegisterResponseModel> call = registerInterface.InsertUser(new User(
                         input_firstName.getText().toString(),
                         input_lastName.getText().toString(),
@@ -62,6 +66,18 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<RegisterResponseModel> call, Response<RegisterResponseModel> response) {
                         if (response.isSuccessful()) {
+                            final SweetAlertDialog dialog = new SweetAlertDialog(RegisterActivity.this);
+                            dialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                            dialog.setTitleText("Loading");
+                            dialog.setCancelable(false);
+                            dialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            dialog.show();
+
                             Toast.makeText(RegisterActivity.this, "ثبت اطلاعت با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
                         } else {
                             Log.i("rezaie", " " + response.body());
