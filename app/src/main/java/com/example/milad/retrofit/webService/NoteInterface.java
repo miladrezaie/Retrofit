@@ -35,6 +35,8 @@ public interface NoteInterface {
     Call<NoteResponseModel> createNote(@Header("Authorization") String token, @Body Note note);
 
 
+
+
     //all note user
     @Headers({
             "X-Backtory-Object-Storage-Id: 5a9314fce4b092a32b632af9",
@@ -42,6 +44,8 @@ public interface NoteInterface {
     })
     @POST("/object-storage/classes/query/notes/")
     Call<ResultsResponse> allNotes(@Header("Authorization") String token, @Body Note note);
+
+
 
 
     //delete note
@@ -52,6 +56,9 @@ public interface NoteInterface {
     @DELETE("/object-storage/classes/notes/{Note-Id}")
     Call<String> deleteNote(@Header("Authorization") String token, @Path("Note-Id") String noteId);
 
+
+
+
     @Headers({
             "X-Backtory-Object-Storage-Id: 5a9314fce4b092a32b632af9",
             "Content-Type: application/json"
@@ -59,19 +66,13 @@ public interface NoteInterface {
     @GET("/object-storage/classes/notes/{noteId}")
     Call<Note> getNoteInfo(@Header("Authorization") String token, @Path("noteId") String noteId);
 
-//    @Headers({
-//            "X-Backtory-Object-Storage-Id: 5a9314fce4b092a32b632af9",
-//            "Content-Type: application/json"
-//    })
-//    @FormUrlEncoded
-//    @POST("/object-storage/classes/notes/{noteId}")
-//    Call<User> updateUser(@Field("first_name") String first, @Field("last_name") String last);
+
+
 
     @Headers({
             "X-Backtory-Object-Storage-Id: 5a9314fce4b092a32b632af9",
             "Content-Type: application/json"
     })
-    @Multipart
     @PUT("/object-storage/classes/notes/{noteId}")
     Call<Note> updateNote(@Header("Authorization") String token,
                           @Path("noteId") String noteId,

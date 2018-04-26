@@ -30,7 +30,7 @@ public class noteInfoActivity extends AppCompatActivity {
     private Button btnDelete;
     private String id;
     private EditText edt_name, edt_desc;
-    private Button btn_update;
+    private Button update;
     private EditText edttitle;
     private EditText edtdescription;
     private TextView textviewsabt;
@@ -67,7 +67,7 @@ public class noteInfoActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                coustomDialogUpdate();
+                coustomDialogUpdate(id);
             }
         });
 
@@ -119,7 +119,7 @@ public class noteInfoActivity extends AppCompatActivity {
         });
     }
 
-    private void coustomDialogUpdate() {
+    private void coustomDialogUpdate(final String ids) {
         AlertDialog.Builder builder = new AlertDialog.Builder(noteInfoActivity.this);
         View v = getLayoutInflater().inflate(R.layout.dialogupdate, null);
 
@@ -130,6 +130,7 @@ public class noteInfoActivity extends AppCompatActivity {
 
         edt_name = (EditText) dialog.findViewById(R.id.name);
         edt_desc = (EditText) dialog.findViewById(R.id.desc);
+        update = (Button) dialog.findViewById(R.id.update);
 
         Intent intent = getIntent();
         nameUP = intent.getExtras().getString("name");
@@ -137,41 +138,35 @@ public class noteInfoActivity extends AppCompatActivity {
 
         edt_name.setText(nameUP);
         edt_desc.setText(descUp);
-        btn_update.setOnClickListener(new View.OnClickListener() {
+        update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                noteUpdateRequst();
-            }
-        });
+                NoteInterface noteInterface = ApiClient.getClient().create(NoteInterface.class);
+                Call<Note> call = noteInterface.updateNote(token, ids, new Note(
+                        ApiClient.getUser_id(),
+                        edt_name.getText().toString(),
+                        edt_desc.getText().toString()
+                ));
+                call.enqueue(new Callback<Note>() {
+                    @Override
+                    public void onResponse(Call<Note> call, Response<Note> response) {
+                        if (response.isSuccessful()) {
+                            Toast.makeText(noteInfoActivity.this, "اوکی", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.i("miladrezaie",call.request().headers().toString());
+                            Log.i("miladrezaie",response.message());
+                            Log.i("miladrezaie", String.valueOf(response.code()));
+                            Toast.makeText(noteInfoActivity.this, "خطا", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(Call<Note> call, Throwable t) {
+                        Toast.makeText(noteInfoActivity.this, "سرور", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-    }
-
-    private void noteUpdateRequst() {
-
-
-        final NoteInterface noteInterface = ApiClient.getClient().create(NoteInterface.class);
-        Call<Note> call = noteInterface.updateNote(token, id, new Note(
-                ApiClient.getUser_id(),
-                edt_name.getText().toString(),
-                edt_desc.getText().toString()
-        ));
-        call.enqueue(new Callback<Note>() {
-            @Override
-            public void onResponse(Call<Note> call, Response<Note> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(noteInfoActivity.this, "اوکی", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(noteInfoActivity.this, "خطا", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Note> call, Throwable t) {
-                Toast.makeText(noteInfoActivity.this, "سرور", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-
 }
