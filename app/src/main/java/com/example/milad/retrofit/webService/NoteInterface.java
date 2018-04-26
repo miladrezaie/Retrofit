@@ -73,9 +73,8 @@ public interface NoteInterface {
     })
     @Multipart
     @PUT("/object-storage/classes/notes/{noteId}")
-    Call<Note> updateNote(@Part("name") RequestBody name,
-                          @Part("description") RequestBody description,
-                          @Header("Authorization") String token,
-                          @Path("noteId") String noteId);
+    Call<Note> updateNote(@Header("Authorization") String token,
+                          @Path("noteId") String noteId,
+                          @Body Note note);
 
 }

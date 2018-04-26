@@ -41,6 +41,8 @@ public class MyRecyclerView extends RecyclerView.Adapter<MyRecyclerView.MyViewHo
             public void onClick(View v) {
                 Intent intent = new Intent(context, noteInfoActivity.class);
                 intent.putExtra("id", notes.get(position).get_id());
+                intent.putExtra("name", notes.get(position).getName());
+                intent.putExtra("desc", notes.get(position).getDescription());
                 context.startActivity(intent);
             }
         });

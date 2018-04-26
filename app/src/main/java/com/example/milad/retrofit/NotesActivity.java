@@ -180,20 +180,4 @@ public class NotesActivity extends AppCompatActivity {
 
     }
 
-//    private void deleteNote() {
-//        NoteInterface noteInterface = ApiClient.getClient().create(NoteInterface.class);
-//
-//        Call<deleteResponseBodyModel> call = noteInterface.deleteNote(token, ApiClient.getId().toString());
-//        call.enqueue(new Callback<deleteResponseBodyModel>() {
-//            @Override
-//            public void onResponse(Call<deleteResponseBodyModel> call, Response<deleteResponseBodyModel> response) {
-//                alertDiaog();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<deleteResponseBodyModel> call, Throwable t) {
-//                Toast.makeText(NotesActivity.this, "ارتباط با سرور مقدور نیست", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-////    }
 }

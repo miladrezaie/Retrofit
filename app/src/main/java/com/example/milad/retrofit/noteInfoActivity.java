@@ -29,11 +29,15 @@ public class noteInfoActivity extends AppCompatActivity {
     private Button btnUpdate;
     private Button btnDelete;
     private String id;
-
+    private EditText edt_name, edt_desc;
+    private Button btn_update;
     private EditText edttitle;
     private EditText edtdescription;
     private TextView textviewsabt;
     private TextView textviewkhoroj;
+
+    private String nameUP;
+    private String descUp;
 
 
     @Override
@@ -43,6 +47,7 @@ public class noteInfoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         id = intent.getExtras().getString("id");
+
 
         name = (TextView) findViewById(R.id.name);
         description = (TextView) findViewById(R.id.description);
@@ -62,7 +67,7 @@ public class noteInfoActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                coustomDialogUpdate();
             }
         });
 
@@ -114,71 +119,59 @@ public class noteInfoActivity extends AppCompatActivity {
         });
     }
 
-    private void noteUpdateRequst(String id) {
-        NoteInterface noteInterface = ApiClient.getClient().create(NoteInterface.class);
-        Call<Note> call =noteInterface.updateNote()
-    }
-    private void coustomAlertDialog() {
-
+    private void coustomDialogUpdate() {
         AlertDialog.Builder builder = new AlertDialog.Builder(noteInfoActivity.this);
-        View v = getLayoutInflater().inflate(R.layout.dialog, null);
+        View v = getLayoutInflater().inflate(R.layout.dialogupdate, null);
 
         builder.setView(v);
-
 
         final AlertDialog dialog = builder.create();
         dialog.show();
 
-        edttitle = (EditText) dialog.findViewById(R.id.edttitle);
-        edtdescription = (EditText) dialog.findViewById(R.id.edtdescription);
-        textviewsabt = (TextView) dialog.findViewById(R.id.textviewsabt);
-        textviewkhoroj = (TextView) dialog.findViewById(R.id.textviewkhoroj);
+        edt_name = (EditText) dialog.findViewById(R.id.name);
+        edt_desc = (EditText) dialog.findViewById(R.id.desc);
 
-        textviewsabt.setOnClickListener(new View.OnClickListener() {
+        Intent intent = getIntent();
+        nameUP = intent.getExtras().getString("name");
+        descUp = intent.getExtras().getString("desc");
+
+        edt_name.setText(nameUP);
+        edt_desc.setText(descUp);
+        btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("miladrezaie", String.valueOf(edttitle));
-                Log.i("miladrezaie", String.valueOf(edtdescription));
-
-
-                NoteInterface noteInterface = ApiClient.getClient().create(NoteInterface.class);
-                Call<NoteResponseModel> call = noteInterface.createNote(token, new Note(
-                                ApiClient.getUser_id(),
-                                edttitle.getText().toString(),
-                                edtdescription.getText().toString()
-                        )
-                );
-
-                call.enqueue(new Callback<NoteResponseModel>() {
-                    @Override
-                    public void onResponse(Call<NoteResponseModel> call, Response<NoteResponseModel> response) {
-                        if (response.isSuccessful()) {
-
-                            Toast.makeText(noteInfoActivity.this, "عملیات موفقت آمیز بود", Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                        } else {
-                            Log.i("miladrezaie", String.valueOf(call.request().headers()));
-                            Log.i("miladrezaie", String.valueOf(call.request().body()));
-
-                            Toast.makeText(noteInfoActivity.this, "ارور دارید در ثبت یادداشت", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<NoteResponseModel> call, Throwable t) {
-                        Toast.makeText(noteInfoActivity.this, "سرور ارور دارید", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                noteUpdateRequst();
             }
         });
 
-        textviewkhoroj.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
 
     }
+
+    private void noteUpdateRequst() {
+
+
+        final NoteInterface noteInterface = ApiClient.getClient().create(NoteInterface.class);
+        Call<Note> call = noteInterface.updateNote(token, id, new Note(
+                ApiClient.getUser_id(),
+                edt_name.getText().toString(),
+                edt_desc.getText().toString()
+        ));
+        call.enqueue(new Callback<Note>() {
+            @Override
+            public void onResponse(Call<Note> call, Response<Note> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(noteInfoActivity.this, "اوکی", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(noteInfoActivity.this, "خطا", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Note> call, Throwable t) {
+                Toast.makeText(noteInfoActivity.this, "سرور", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
 }
