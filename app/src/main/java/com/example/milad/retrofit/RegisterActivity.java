@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         btn_register = (Button) findViewById(R.id.btn_register);
 
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         final RegisterInterface registerInterface = ApiClient.getClient().create(RegisterInterface.class);
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,9 +68,10 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<RegisterResponseModel> call, Response<RegisterResponseModel> response) {
                         if (response.isSuccessful()) {
+
                             final SweetAlertDialog dialog = new SweetAlertDialog(RegisterActivity.this);
                             dialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                            dialog.setTitleText("Loading");
+                            dialog.setTitleText("اطلاعات با موفقیت ثبت شد");
                             dialog.setCancelable(false);
                             dialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                 @Override
@@ -78,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
                             });
                             dialog.show();
 
-                            Toast.makeText(RegisterActivity.this, "ثبت اطلاعت با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RegisterActivity.this, "ثبت اطلاعت با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
                         } else {
                             Log.i("rezaie", " " + response.body());
                             Log.i("rezaie", " " + response.headers());
@@ -97,5 +100,18 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

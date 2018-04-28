@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,9 +15,12 @@ import android.widget.Toast;
 
 import com.example.milad.retrofit.model.Note;
 import com.example.milad.retrofit.model.NoteResponseModel;
+import com.example.milad.retrofit.model.ResultsResponse;
 import com.example.milad.retrofit.model.deleteResponseBodyModel;
 import com.example.milad.retrofit.webService.ApiClient;
 import com.example.milad.retrofit.webService.NoteInterface;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,14 +53,13 @@ public class noteInfoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getExtras().getString("id");
 
-
         name = (TextView) findViewById(R.id.name);
         description = (TextView) findViewById(R.id.description);
-
 
         btnDelete = (Button) findViewById(R.id.btndelete);
         btnUpdate = (Button) findViewById(R.id.btnUpdate);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,18 +67,29 @@ public class noteInfoActivity extends AppCompatActivity {
                 noteDeleteRequest(id);
             }
         });
-
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 coustomDialogUpdate(id);
             }
         });
-
         noteInfoRequset(id);
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private void noteInfoRequset(String id) {
         NoteInterface noteInterface = ApiClient.getClient().create(NoteInterface.class);
@@ -100,14 +115,18 @@ public class noteInfoActivity extends AppCompatActivity {
     }
 
     private void noteDeleteRequest(String id) {
-        NoteInterface noteInterface = ApiClient.getClient().create(NoteInterface.class);
+        final NoteInterface noteInterface = ApiClient.getClient().create(NoteInterface.class);
         Call<String> call = noteInterface.deleteNote(token, id);
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
+
                     Toast.makeText(noteInfoActivity.this, "حذف شد", Toast.LENGTH_SHORT).show();
                 } else {
+                    Intent intent = new Intent(noteInfoActivity.this, NotesActivity.class);
+                    startActivity(intent);
+
                     Toast.makeText(noteInfoActivity.this, "خطا در برنامه", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -132,7 +151,7 @@ public class noteInfoActivity extends AppCompatActivity {
         edt_desc = (EditText) dialog.findViewById(R.id.desc);
         update = (Button) dialog.findViewById(R.id.update);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         nameUP = intent.getExtras().getString("name");
         descUp = intent.getExtras().getString("desc");
 
@@ -141,7 +160,7 @@ public class noteInfoActivity extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NoteInterface noteInterface = ApiClient.getClient().create(NoteInterface.class);
+                final NoteInterface noteInterface = ApiClient.getClient().create(NoteInterface.class);
                 Call<Note> call = noteInterface.updateNote(token, ids, new Note(
                         ApiClient.getUser_id(),
                         edt_name.getText().toString(),
@@ -151,10 +170,12 @@ public class noteInfoActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Note> call, Response<Note> response) {
                         if (response.isSuccessful()) {
+                            Intent intent1 = new Intent(noteInfoActivity.this, NotesActivity.class);
+                            startActivity(intent);
                             Toast.makeText(noteInfoActivity.this, "اوکی", Toast.LENGTH_SHORT).show();
                         } else {
-                            Log.i("miladrezaie",call.request().headers().toString());
-                            Log.i("miladrezaie",response.message());
+                            Log.i("miladrezaie", call.request().headers().toString());
+                            Log.i("miladrezaie", response.message());
                             Log.i("miladrezaie", String.valueOf(response.code()));
                             Toast.makeText(noteInfoActivity.this, "خطا", Toast.LENGTH_SHORT).show();
                         }
@@ -169,4 +190,5 @@ public class noteInfoActivity extends AppCompatActivity {
             }
         });
     }
+
 }

@@ -3,7 +3,10 @@ package com.example.milad.retrofit;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -11,6 +14,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,17 +51,34 @@ public class NotesActivity extends AppCompatActivity {
     private TextView textviewkhoroj;
     private String token = "Bearer " + ApiClient.getAccessToken();
     private Button btndelete;
+    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view);
+        Intent intent = getIntent();
 
         userRequest();
 
-        coustomAlertDialog();
+//        coustomAlertDialog();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void userRequest() {
@@ -123,11 +145,8 @@ public class NotesActivity extends AppCompatActivity {
 
     private void coustomAlertDialog() {
 
-
-
         AlertDialog.Builder builder = new AlertDialog.Builder(NotesActivity.this);
         View v = getLayoutInflater().inflate(R.layout.dialog, null);
-
 
         builder.setView(v);
 
@@ -159,7 +178,7 @@ public class NotesActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<NoteResponseModel> call, Response<NoteResponseModel> response) {
                         if (response.isSuccessful()) {
-
+                            userRequest();
                             Toast.makeText(NotesActivity.this, "عملیات موفقت آمیز بود", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         } else {
