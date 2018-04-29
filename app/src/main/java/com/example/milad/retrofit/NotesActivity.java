@@ -69,7 +69,8 @@ public class NotesActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
     }
 
     @Override
@@ -77,6 +78,14 @@ public class NotesActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             finish();
+        }
+        if (id == R.id.logout){
+            Intent intent = new Intent(NotesActivity.this,MainActivity.class);
+            startActivity(intent);
+            Toast.makeText(NotesActivity.this, "خروج", Toast.LENGTH_SHORT).show();
+        }
+        if (id == R.id.addNote){
+            coustomAlertDialog();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -205,4 +214,5 @@ public class NotesActivity extends AppCompatActivity {
         });
 
     }
+
 }

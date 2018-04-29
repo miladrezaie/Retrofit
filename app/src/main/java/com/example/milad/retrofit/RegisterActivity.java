@@ -1,5 +1,6 @@
 package com.example.milad.retrofit;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -54,7 +55,6 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 Call<RegisterResponseModel> call = registerInterface.InsertUser(new User(
                         input_firstName.getText().toString(),
                         input_lastName.getText().toString(),
@@ -76,18 +76,19 @@ public class RegisterActivity extends AppCompatActivity {
                             dialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                 @Override
                                 public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                    startActivity(intent);
                                     dialog.dismiss();
                                 }
                             });
                             dialog.show();
 
-//                            Toast.makeText(RegisterActivity.this, "ثبت اطلاعت با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
                         } else {
                             Log.i("rezaie", " " + response.body());
                             Log.i("rezaie", " " + response.headers());
                             Log.i("rezaie", " " + call.request().headers());
                             Log.i("rezaie", " " + call.request().body());
-                            Toast.makeText(RegisterActivity.this, "errrrror in program", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "لطفا چک شود", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -101,6 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);

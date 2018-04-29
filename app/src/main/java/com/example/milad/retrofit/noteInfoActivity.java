@@ -2,6 +2,7 @@ package com.example.milad.retrofit;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.example.milad.retrofit.webService.NoteInterface;
 
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -79,7 +81,8 @@ public class noteInfoActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
     }
 
     @Override
@@ -87,6 +90,11 @@ public class noteInfoActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             finish();
+        }
+        if (id == R.id.logout) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            Toast.makeText(this, "خروج", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -121,19 +129,17 @@ public class noteInfoActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
-
                     Toast.makeText(noteInfoActivity.this, "حذف شد", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(noteInfoActivity.this, NotesActivity.class);
                     startActivity(intent);
-
-                    Toast.makeText(noteInfoActivity.this, "خطا در برنامه", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(noteInfoActivity.this, "خطا در برنامه", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Toast.makeText(noteInfoActivity.this, "ارتباط با سرور مقدور نیست", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(noteInfoActivity.this, "ارتباط با سرور مقدور نیست", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -170,8 +176,10 @@ public class noteInfoActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Note> call, Response<Note> response) {
                         if (response.isSuccessful()) {
+
                             Intent intent1 = new Intent(noteInfoActivity.this, NotesActivity.class);
-                            startActivity(intent);
+                            startActivity(intent1);
+
                             Toast.makeText(noteInfoActivity.this, "اوکی", Toast.LENGTH_SHORT).show();
                         } else {
                             Log.i("miladrezaie", call.request().headers().toString());
